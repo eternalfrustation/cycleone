@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import '../models/stand.dart';
+import 'package:qrscan/qrscan.dart' as scanner;
+import 'package:cycleone/screens/qr_scanner.dart';
 
 class CycleTile extends StatelessWidget {
 
@@ -68,7 +70,9 @@ class CycleTile extends StatelessWidget {
                 ),
                 Spacer(),
                 TextButton.icon(
-                  onPressed: () {}, 
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/qr_scanner');
+                  },
                   icon: Icon(Icons.wifi_find_sharp),
                   label: Text('Connect to Stand'),
                 ),

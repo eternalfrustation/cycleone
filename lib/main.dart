@@ -6,6 +6,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'models/customuser.dart';
+import 'package:qrscan/qrscan.dart' as scanner;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,4 +28,4 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
-} 
+}
