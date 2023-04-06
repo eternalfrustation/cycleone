@@ -70,8 +70,7 @@ class CycleTile extends StatelessWidget {
                 ),
                 Spacer(),
                 TextButton.icon(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/qr_scanner');
+                  onPressed: () {git statu
                   },
                   icon: Icon(Icons.wifi_find_sharp),
                   label: Text('Connect to Stand'),
