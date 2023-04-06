@@ -70,7 +70,7 @@ class CycleTile extends StatelessWidget {
                 ),
                 Spacer(),
                 TextButton.icon(
-                  onPressed: () {git statu
+                  onPressed: () {
                   },
                   icon: Icon(Icons.wifi_find_sharp),
                   label: Text('Connect to Stand'),
