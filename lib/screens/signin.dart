@@ -77,8 +77,8 @@ class _SignInState extends State<SignIn> {
               ],
             )),
             ElevatedButton(
-              onPressed: () async => await _authservice.signInAnonymously(), 
-              child: Text("Sign In Anonymously"),
+              onPressed: () async => await _authservice.signInAnonymously(),
+                child: Text("Sign In Anonymously"),
             ),
             SizedBox(height: 20,),
             Text(error, style: TextStyle(color: Colors.red,),),
