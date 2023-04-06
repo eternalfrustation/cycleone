@@ -9,9 +9,11 @@ class Loading extends StatelessWidget {
     return Container(
       color: Colors.blue,
       child: const Center(
-        child: SpinKitChasingDots(
-          color: Colors.black,
-          size: 50,),
+        child: Image(
+          width: 160.0,
+          height: 160.0,
+          image:  AssetImage('assets/bike-biking.gif'),
+        ),
       ),
     );
   }
