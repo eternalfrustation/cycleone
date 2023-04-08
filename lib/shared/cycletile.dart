@@ -1,9 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:cycleone/shared/constants.dart';
 import 'package:flutter/material.dart';
 import '../models/stand.dart';
-import 'package:qrscan/qrscan.dart' as scanner;
-import 'package:cycleone/screens/qr_scanner.dart';
+import 'package:wifi_iot/wifi_iot.dart';
 
 class CycleTile extends StatelessWidget {
 
@@ -71,6 +71,9 @@ class CycleTile extends StatelessWidget {
                 Spacer(),
                 TextButton.icon(
                   onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => alert,);
                   },
                   icon: Icon(Icons.wifi_find_sharp),
                   label: Text('Connect to Stand'),
