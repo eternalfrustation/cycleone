@@ -1,9 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:cycleone/shared/constants.dart';
 import 'package:flutter/material.dart';
 import '../models/stand.dart';
-import 'package:qrscan/qrscan.dart' as scanner;
-import 'package:cycleone/screens/qr_scanner.dart';
+import 'package:wifi_iot/wifi_iot.dart';
 
 class CycleTile extends StatelessWidget {
 
@@ -70,7 +70,19 @@ class CycleTile extends StatelessWidget {
                 ),
                 Spacer(),
                 TextButton.icon(
-                  onPressed: () {
+                  onPressed: () async {
+                    if (await WiFiForIoTPlugin.isEnabled() == false) {
+                      showDialog(
+                        context: context,
+                        builder: (context) => alert,);
+                    }
+                    else {
+                     WiFiForIoTPlugin.connect('moto g(9)', bssid: '02:00:00:00:00:00', password: '03207492', timeoutInSeconds: 5);
+                     showDialog(
+                       context: context,
+                        builder: (context) => stand_cycle,);
+
+                    }
                   },
                   icon: Icon(Icons.wifi_find_sharp),
                   label: Text('Connect to Stand'),

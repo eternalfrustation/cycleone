@@ -34,7 +34,8 @@ dependencies:
   cloud_firestore: 
   firebase_core: 
   provider: 
-  flutter_spinkit: 
+  flutter_spinkit:
+  wifi_iot:
 
 
   # The following adds the Cupertino Icons font to your application.
