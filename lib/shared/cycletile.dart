@@ -70,10 +70,19 @@ class CycleTile extends StatelessWidget {
                 ),
                 Spacer(),
                 TextButton.icon(
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) => alert,);
+                  onPressed: () async {
+                    if (await WiFiForIoTPlugin.isEnabled() == false) {
+                      showDialog(
+                        context: context,
+                        builder: (context) => alert,);
+                    }
+                    else {
+                     WiFiForIoTPlugin.connect('moto g(9)', bssid: '02:00:00:00:00:00', password: '03207492', timeoutInSeconds: 5);
+                     showDialog(
+                       context: context,
+                        builder: (context) => stand_cycle,);
+
+                    }
                   },
                   icon: Icon(Icons.wifi_find_sharp),
                   label: Text('Connect to Stand'),
