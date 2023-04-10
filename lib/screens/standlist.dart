@@ -13,7 +13,7 @@ class StandList extends StatefulWidget {
 
 class _StandListState extends State<StandList> {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) { 
 
     final standList = Provider.of<List<Stand>?>(context);
     

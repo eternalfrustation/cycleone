@@ -23,7 +23,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return StreamProvider<List<Stand>?>.value(
       value: DB().standStream,
-      initialData: [Stand(name: 'noname', id: 0, status: [])],
+      initialData: [Stand(name: 'noname', id: 0, status: [], ip: '', ssid: '')],
       child: Scaffold(
         appBar: AppBar(
           title: Text("Home Page"),

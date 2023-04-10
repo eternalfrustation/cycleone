@@ -37,7 +37,9 @@ class DB {
       return Stand(
         name: doc['name'], 
         id: doc['id'], 
-        status: doc['status']);
+        status: doc['status'], 
+        ip: doc['ip'],
+        ssid: doc['ssid'],);
     }).toList();
   }
 
