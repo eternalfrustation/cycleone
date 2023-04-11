@@ -39,7 +39,8 @@ class DB {
         id: doc['id'], 
         status: doc['status'], 
         ip: doc['ip'],
-        ssid: doc['ssid'],);
+        ssid: doc['ssid'],
+        password: doc['password']);
     }).toList();
   }
 

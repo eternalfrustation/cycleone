@@ -21,7 +21,7 @@ class _CycleTileState extends State<CycleTile> {
   
   late WiFiService wiFiService = WiFiService(stand: widget.stand);
   bool loading = false;
-  bool connected = false;
+  bool connected = true;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class _CycleTileState extends State<CycleTile> {
               children: [
                 SizedBox(width: 20,),
                 Text(
-                  widget.stand!.name, 
+                  widget.stand.name, 
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 17,

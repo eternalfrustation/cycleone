@@ -18,7 +18,7 @@ class ExpandedCycleTile extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(10.0),
       child: SizedBox(
-        height: 400.0,
+        height: 200.0,
         child: ListView.builder(
           itemCount: stand.status.length,
           itemBuilder: (context, index) {
