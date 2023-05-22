@@ -18,7 +18,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
   final _authservice = AuthService();
-
   @override
   Widget build(BuildContext context) {
     return StreamProvider<List<Stand>?>.value(
@@ -39,7 +38,7 @@ class _HomeState extends State<Home> {
             )
           ],
         ),
-        body: StandList(),
+        body: StandList(uid: _authservice.getUserId()),
       ),
     );
   }

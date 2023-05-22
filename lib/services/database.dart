@@ -1,16 +1,17 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cycleone/models/stand.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 
 class DB {
-
   final String? uid;
   DB({this.uid});
 
   // collection references, collection = table, document = element/row
-  final CollectionReference standsInstance = FirebaseFirestore.instance.collection('Stands');
-  final CollectionReference usersInstance = FirebaseFirestore.instance.collection('Users');
+  final CollectionReference standsInstance =
+      FirebaseFirestore.instance.collection('Stands');
+  final CollectionReference usersInstance =
+      FirebaseFirestore.instance.collection('Users');
 
   Future updateStandData(String name, int id, Map status) async {
     return await standsInstance.doc(uid).set({
@@ -20,7 +21,12 @@ class DB {
     });
   }
 
-  Future updateUserData({String? name, String? email, String? rollNo, String? blacklist, String? cycleInPossession}) async {
+  Future updateUserData(
+      {String? name,
+      String? email,
+      String? rollNo,
+      String? blacklist,
+      String? cycleInPossession}) async {
     return await usersInstance.doc(uid).set({
       'uid': uid,
       'name': name,
@@ -35,13 +41,25 @@ class DB {
   List<Stand>? _standListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
       return Stand(
-        name: doc['name'], 
-        id: doc['id'], 
-        status: doc['status'], 
-        ip: doc['ip'],
-        ssid: doc['ssid'],
-        password: doc['password']);
+          name: doc['name'],
+          id: doc['id'],
+          status: doc['status'],
+          ip: doc['ip'],
+          ssid: doc['ssid'],
+          password: doc['password']);
     }).toList();
+  }
+
+  Future sendLockRequest(int standId, int cycleId, bool isUnlocked) async {
+    var stand = await DB()
+        .standStream
+        .map((stands) =>
+            stands!.where((stand) => stand.id == standId).firstOrNull)
+        .first;
+    var status = stand!.status;
+    status[cycleId] = isUnlocked;
+    await usersInstance.doc(uid).update({'cycleInPossession': true});
+    return await standsInstance.doc(uid).update({'status': status});
   }
 
   Stream<List<Stand>?> get standStream {

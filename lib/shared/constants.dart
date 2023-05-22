@@ -33,7 +33,4 @@ var alert = AlertDialog(
 
 var standCycle = const Center(
     child: AlertDialog(
-        title: Text("Stand 1"),
-        content: Text('Click to Unlock'),
-        actions: [
-        ]));
+        title: Text("Stand 1"), content: Text('Click to Unlock'), actions: []));

@@ -53,6 +53,9 @@ class AuthService {
       return null;
     }
   }
+	String getUserId() {
+		return _firebaseinstance.currentUser!.uid;
+	}
 
   // sign in with email and password
   Future signInWithEmailAndPassword(String email, String password) async {
@@ -65,7 +68,6 @@ class AuthService {
       return null;
     }
   }
-
 
   // sign out method
   Future signOut() async {

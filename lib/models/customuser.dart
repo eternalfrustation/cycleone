@@ -8,7 +8,7 @@ class CustomUser {
   final String? email;
   final int? rollNo;
   bool blackList = false;
-  String? cycleInPossession;
+  bool? cycleInPossession;
 
   CustomUser({this.uid, this.name, this.email, this.rollNo});
 }

@@ -12,7 +12,7 @@ class LoadingCycle extends StatelessWidget {
         child: Image(
           width: 160.0,
           height: 160.0,
-          image:  AssetImage('assets/bike-biking.gif'),
+          image: AssetImage('assets/bike-biking.gif'),
         ),
       ),
     );
@@ -33,3 +33,4 @@ class LoadingCircle extends StatelessWidget {
     );
   }
 }
+
