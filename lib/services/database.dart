@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cycleone/models/stand.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'dart:developer';
 
 class DB {
   final String? uid;
@@ -49,18 +48,17 @@ class DB {
           ssid: doc['ssid'],
           password: doc['password']);
     }).toList();
-    inspect(stands);
     return stands;
   }
 
-  Future sendLockRequest(int standId, int cycleId, bool isUnlocked) async {
+  Future sendLockRequest(int standId, int cycleId, bool lock) async {
     var stand = await DB()
         .standStream
         .map((stands) =>
             stands!.where((stand) => stand.id == standId).firstOrNull)
         .first;
     var status = stand!.lockStatus;
-    status[cycleId] = isUnlocked;
+    status[cycleId] = lock;
     await usersInstance.doc(uid).update({'cycleInPossession': true});
     return await standsInstance.doc(uid).update({'status': status});
   }

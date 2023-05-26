@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'dart:developer';
 
 import 'package:cycleone/screens/standlist.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +21,6 @@ class _HomeState extends State<Home> {
   final _authservice = AuthService();
   @override
   Widget build(BuildContext context) {
-    inspect(_authservice.getUserId());
     return StreamProvider<List<Stand>?>.value(
       value: DB().standStream,
       initialData: [Stand(name: 'noname', id: 0, lockStatus: [], ip: '', ssid: '', password: '')],

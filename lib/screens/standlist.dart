@@ -1,6 +1,4 @@
 
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/stand.dart';
@@ -18,7 +16,6 @@ class _StandListState extends State<StandList> {
   Widget build(BuildContext context) { 
     final uid = widget.uid;
     final standList = Provider.of<List<Stand>?>(context);
-    inspect(uid);
     return ListView.builder(
       itemCount: standList?.length,
       itemBuilder: (context, index) {

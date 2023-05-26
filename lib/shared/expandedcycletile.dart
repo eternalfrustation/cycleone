@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:cycleone/services/wifi.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +16,6 @@ class ExpandedCycleTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final WiFiService wiFiService = WiFiService(stand: stand);
     final DB db = DB(uid: uid);
-    inspect(db.standStream.toList());
 
     return Container(
       padding: const EdgeInsets.all(10.0),
