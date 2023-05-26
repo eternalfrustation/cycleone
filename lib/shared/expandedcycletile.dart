@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cycleone/services/wifi.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -15,32 +17,42 @@ class ExpandedCycleTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final WiFiService wiFiService = WiFiService(stand: stand);
     final DB db = DB(uid: uid);
+    inspect(db.standStream.toList());
 
     return Container(
       padding: const EdgeInsets.all(10.0),
       child: SizedBox(
         height: 200.0,
         child: ListView.builder(
-            itemCount: stand.status.length,
+            itemCount: stand.lockStatus.length,
             itemBuilder: (context, index) {
               return Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Icon(
                     Icons.pedal_bike_rounded,
-                    color: stand.status[index] == 'null'
+                    color: (stand.lockStatus[index] == 'null' ||
+                            !stand.lockStatus[index])
                         ? Colors.grey
                         : Colors.green,
                   ),
                   ElevatedButton(
-                    onPressed: () async {
-                      await wiFiService.sendUnlockRequest(index);
-                      await db.sendLockRequest(stand.id, index, true);
-                    },
+                    onPressed: (stand.lockStatus[index] == 'null' ||
+                            !stand.lockStatus[index])
+                        ? null
+                        : () async {
+                            await wiFiService.sendUnlockRequest(index);
+                            await db.sendLockRequest(stand.id, index, true);
+                          },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.green,
+                      backgroundColor: (!stand.lockStatus[index])
+                          ? Colors.grey
+                          : Colors.green,
                     ),
-                    child: Text("Unlock cycle ${index.toString()}"),
+                    child: (stand.lockStatus[index] == 'null' ||
+                            !stand.lockStatus[index])
+                        ? Text("Cycle ${index.toString()} Unlocked")
+                        : Text("Unlock cycle ${index.toString()}"),
                   ),
                 ],
               );
@@ -49,4 +61,3 @@ class ExpandedCycleTile extends StatelessWidget {
     );
   }
 }
-

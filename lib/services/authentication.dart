@@ -1,31 +1,35 @@
 // ignore_for_file: avoid_print
 
-
 import 'package:firebase_auth/firebase_auth.dart';
 import '../models/customuser.dart';
 import 'database.dart';
 
 class AuthService {
-
   // object to use the class functions
   final FirebaseAuth _firebaseinstance = FirebaseAuth.instance;
 
   // sign in anonymously method
   Future signInAnonymously() async {
     try {
-      UserCredential resultofsignin = await _firebaseinstance.signInAnonymously();
+      UserCredential resultofsignin =
+          await _firebaseinstance.signInAnonymously();
       User? userDetails = resultofsignin.user;
       print(userDetails);
       CustomUser? customUser = _createCustomUser(userDetails);
       return customUser;
-    } catch(e) {
+    } catch (e) {
       print(e.toString());
     }
   }
 
   // create user object based on firebase user
-  CustomUser? _createCustomUser(User? user){
-    return user != null ? CustomUser(uid: user.uid, name: 'anonymous', ) : null;
+  CustomUser? _createCustomUser(User? user) {
+    return user != null
+        ? CustomUser(
+            uid: user.uid,
+            name: 'anonymous',
+          )
+        : null;
   }
 
   // the auth user stream
@@ -34,9 +38,11 @@ class AuthService {
   }
 
   // register user with email and password
-  Future registerWithEmailAndPassword(String email, String password, String name, int rollNo) async {
+  Future registerWithEmailAndPassword(
+      String email, String password, String name, int rollNo) async {
     try {
-      UserCredential resultOfRegister = await _firebaseinstance.createUserWithEmailAndPassword(email: email, password: password);
+      UserCredential resultOfRegister = await _firebaseinstance
+          .createUserWithEmailAndPassword(email: email, password: password);
       User? userDetails = resultOfRegister.user;
 
       // create a new entry in firebase database for the user
@@ -47,23 +53,24 @@ class AuthService {
       );
 
       return _createCustomUser(userDetails);
-      
-    } catch(e) {
+    } catch (e) {
       print(e.toString());
       return null;
     }
   }
-	String getUserId() {
-		return _firebaseinstance.currentUser!.uid;
-	}
+
+  String getUserId() {
+    return _firebaseinstance.currentUser!.uid;
+  }
 
   // sign in with email and password
   Future signInWithEmailAndPassword(String email, String password) async {
     try {
-      UserCredential resultOfSignIn = await _firebaseinstance.signInWithEmailAndPassword(email: email, password: password);
+      UserCredential resultOfSignIn = await _firebaseinstance
+          .signInWithEmailAndPassword(email: email, password: password);
       User? userDetails = resultOfSignIn.user;
       return _createCustomUser(userDetails);
-    } catch(e) {
+    } catch (e) {
       print(e.toString());
       return null;
     }
@@ -73,7 +80,7 @@ class AuthService {
   Future signOut() async {
     try {
       return await _firebaseinstance.signOut();
-    } catch(e) {
+    } catch (e) {
       print(e.toString());
     }
   }

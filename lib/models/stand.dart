@@ -2,7 +2,7 @@ class Stand {
   
   final String name;
   final int id;
-  List<dynamic> status;
+  final List<bool> lockStatus;
   final String ip;
   final String ssid;
   final String password;
@@ -12,10 +12,5 @@ class Stand {
   int fulls = 0;
   int total = 0;
 
-  Stand({required this.name, required this.id, required this.status, required this.ip, required this.ssid, required this.password}){
-    status.forEach((value) {
-      if (value == 'null') {emptys += 1;} 
-      else {fulls += 1;}
-    });
-  }
+  Stand({required this.name, required this.id, required this.lockStatus, required this.ip, required this.ssid, required this.password});
 } 

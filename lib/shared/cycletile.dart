@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:developer';
+
 import 'package:cycleone/services/wifi.dart';
 import 'package:cycleone/shared/constants.dart';
 import 'package:cycleone/shared/expandedcycletile.dart';
@@ -12,7 +14,6 @@ class CycleTile extends StatefulWidget {
   final Stand stand;
   final String uid;
   const CycleTile({super.key, required this.stand, required this.uid});
-
   @override
   State<CycleTile> createState() => _CycleTileState();
 }
@@ -25,6 +26,7 @@ class _CycleTileState extends State<CycleTile> {
 
   @override
   Widget build(BuildContext context) {
+    inspect(uid);
     return Padding(
       padding: EdgeInsets.only(top: 10.0),
       child: Card(

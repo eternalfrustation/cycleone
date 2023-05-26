@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'models/customuser.dart';
 import 'package:wifi_iot/wifi_iot.dart';
+import 'package:cycleone/services/database.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

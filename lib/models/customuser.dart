@@ -11,4 +11,5 @@ class CustomUser {
   bool? cycleInPossession;
 
   CustomUser({this.uid, this.name, this.email, this.rollNo});
+  
 }
