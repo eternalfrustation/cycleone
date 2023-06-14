@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cycleone/models/stand.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +42,7 @@ class DB {
   // create a list of brew preferences from the snapshot
   List<Stand> _standListFromSnapshot(QuerySnapshot snapshot) {
     final stands = snapshot.docs.map((doc) {
+      log(doc.toString());
       return Stand(
           name: doc['name'],
           id: doc['id'],
@@ -64,6 +67,7 @@ class DB {
   }
 
   Stream<List<Stand>?> get standStream {
+    log(standsInstance.toString());
     return standsInstance.snapshots().map(_standListFromSnapshot);
   }
 }

@@ -21,10 +21,11 @@ class WiFiService {
       await WiFiForIoTPlugin.isConnected()
           ? notConnected = false
           : WiFiForIoTPlugin.connect(stand.ssid, timeoutInSeconds: 5);
+      /*
       await WiFiForIoTPlugin.getIP() == stand.ip
           ? connectedToStand = true
           : WiFiForIoTPlugin.connect(stand.ssid, timeoutInSeconds: 5);
-
+*/
       if (!notEnabled && !notConnected && connectedToStand) {
         notConfigured = false;
         stand.connectedToApp = true;
@@ -37,8 +38,10 @@ class WiFiService {
   }
 
   Future<Response> sendUnlockRequest(int n) async {
-    Response response = await post(Uri.parse(stand.ip),
-        body: jsonEncode({'standToUnlock': n.toString()}));
-    return response;
+    return get(Uri(
+        scheme: "http",
+        host: "10.10.10.10",
+        path: "/",
+        queryParameters: {'cycleNum': n})).timeout(const Duration(seconds: 2));
   }
 }

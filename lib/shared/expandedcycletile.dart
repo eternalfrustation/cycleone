@@ -1,16 +1,16 @@
+import 'dart:developer';
 
 import 'package:cycleone/services/wifi.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-
 import '../models/stand.dart';
 import '../services/database.dart';
 
 class ExpandedCycleTile extends StatelessWidget {
-  final Stand stand;
+  Stand stand;
   final String uid;
-  const ExpandedCycleTile({super.key, required this.stand, required this.uid});
+  ExpandedCycleTile({super.key, required this.stand, required this.uid});
 
   @override
   Widget build(BuildContext context) {
@@ -29,17 +29,16 @@ class ExpandedCycleTile extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.pedal_bike_rounded,
-                    color: (stand.lockStatus[index] == 'null' ||
-                            !stand.lockStatus[index])
-                        ? Colors.grey
-                        : Colors.green,
+                    color:
+                        (!stand.lockStatus[index]) ? Colors.grey : Colors.green,
                   ),
                   ElevatedButton(
-                    onPressed: (stand.lockStatus[index] == 'null' ||
-                            !stand.lockStatus[index])
+                    onPressed: (!stand.lockStatus[index])
                         ? null
                         : () async {
-                            await wiFiService.sendUnlockRequest(index);
+                            stand.lockStatus[index] = false;
+                            var resp = await wiFiService.sendUnlockRequest(index);
+			    log(resp.body);
                             await db.sendLockRequest(stand.id, index, true);
                           },
                     style: ElevatedButton.styleFrom(
@@ -47,8 +46,7 @@ class ExpandedCycleTile extends StatelessWidget {
                           ? Colors.grey
                           : Colors.green,
                     ),
-                    child: (stand.lockStatus[index] == 'null' ||
-                            !stand.lockStatus[index])
+                    child: (!stand.lockStatus[index])
                         ? Text("Cycle ${index.toString()} Unlocked")
                         : Text("Unlock cycle ${index.toString()}"),
                   ),
