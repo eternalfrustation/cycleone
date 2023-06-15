@@ -35,12 +35,12 @@ class ExpandedCycleTile extends StatelessWidget {
                   ElevatedButton(
                     onPressed: (!stand.lockStatus[index])
                         ? null
-                        : () {
+                        : () async {
                             stand.lockStatus[index] = false;
 			    log("Initializing Request\n");
                             var resp = wiFiService.sendUnlockRequest(index);
 			    log(resp);
-                            db.sendLockRequest(stand.id, index, true);
+                            await db.sendLockRequest(stand.id, index, true);
                           },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: (!stand.lockStatus[index])
