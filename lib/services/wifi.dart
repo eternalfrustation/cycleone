@@ -15,9 +15,9 @@ class WiFiService {
   bool connectedToStand = false;
 
   Future<bool?> connectToStand() async {
-    await WiFiForIoTPlugin.forceWifiUsage(true);
-    await WiFiForIoTPlugin.setEnabled(true);
+    await WiFiForIoTPlugin.setEnabled(true, shouldOpenSettings: true);
     await WiFiForIoTPlugin.connect(stand.ssid, timeoutInSeconds: 5);
+    await WiFiForIoTPlugin.forceWifiUsage(true);
       /*
       await WiFiForIoTPlugin.getIP() == stand.ip
           ? connectedToStand = true
