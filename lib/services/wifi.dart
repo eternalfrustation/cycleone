@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:wifi_iot/wifi_iot.dart';
 import 'package:flutter/material.dart';
@@ -37,11 +38,14 @@ class WiFiService {
     return null;
   }
 
-  Future<Response> sendUnlockRequest(int n) async {
-    return get(Uri(
-        scheme: "http",
-        host: "10.10.10.10",
-        path: "/",
-        queryParameters: {'cycleNum': n})).timeout(const Duration(seconds: 2));
+  String sendUnlockRequest(int n) {
+    var uri = Uri(
+        scheme: "http", host: stand.ip, queryParameters: {'cycleNum': n.toString()});
+    log(uri.toString());
+    var request = get(uri);
+		log(request.toString());
+    var resp = request.asStream().toString();
+    log(resp);
+    return resp;
   }
 }
