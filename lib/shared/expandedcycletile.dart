@@ -1,9 +1,11 @@
 import 'dart:developer';
+import 'package:cycleone/shared/constants.dart';
 
 import 'package:cycleone/services/wifi.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:wifi_iot/wifi_iot.dart';
 import '../models/stand.dart';
 import '../services/database.dart';
 
@@ -35,11 +37,32 @@ class ExpandedCycleTile extends StatelessWidget {
                   ElevatedButton(
                     onPressed: (!stand.lockStatus[index])
                         ? null
-                        : () async {
+                        : () {
                             stand.lockStatus[index] = false;
-			    log("Initializing Request\n");
+                            log("Initializing Request\n");
                             var resp = wiFiService.sendUnlockRequest(index);
-			    log(resp);
+                            showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                      title: const Text("Alert"),
+                                      content: const Text(
+                                          "Please turn off your WiFi to proceed"),
+                                      actions: [
+                                        TextButton(
+                                            onPressed:
+                                                WiFiForIoTPlugin.setEnabled(
+                                                    false,
+                                                    shouldOpenSettings: true),
+                                            child: const Text("Proceed")),
+                                        TextButton(
+                                            onPressed:
+                                                WiFiForIoTPlugin.setEnabled(
+                                                    false,
+                                                    shouldOpenSettings: true),
+                                            child: const Text("Proceed"))
+                                      ]);
+                                });
                             db.sendLockRequest(stand.id, index, false);
                           },
                     style: ElevatedButton.styleFrom(

@@ -37,6 +37,7 @@ dependencies:
   flutter_spinkit:
   wifi_iot:
   http:
+  shared_preferences:
 
 
   # The following adds the Cupertino Icons font to your application.

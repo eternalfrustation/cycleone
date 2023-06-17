@@ -16,14 +16,15 @@ class WiFiService {
 
   Future<bool?> connectToStand() async {
     await WiFiForIoTPlugin.setEnabled(true, shouldOpenSettings: true);
-    await WiFiForIoTPlugin.connect(stand.ssid, timeoutInSeconds: 5);
+    await WiFiForIoTPlugin.connect(stand.ssid,
+        timeoutInSeconds: 5, password: stand.password);
     await WiFiForIoTPlugin.forceWifiUsage(true);
-      /*
+    /*
       await WiFiForIoTPlugin.getIP() == stand.ip
           ? connectedToStand = true
           : WiFiForIoTPlugin.connect(stand.ssid, timeoutInSeconds: 5);
 */
-		/*
+    /*
       if (!notEnabled && !notConnected && connectedToStand) {
         notConfigured = false;
         stand.connectedToApp = true;
@@ -32,9 +33,11 @@ class WiFiService {
         return false;
       }
     }*/
-    return null;
+    return true;
   }
 
+  saveRequest(int n) {}
+  update() {}
   String sendUnlockRequest(int n) {
     var uri = Uri(
         scheme: "http",
