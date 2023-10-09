@@ -33,23 +33,21 @@ class ExpandedCycleTile extends StatelessWidget {
                         (!stand.lockStatus[index]) ? Colors.grey : Colors.green,
                   ),
                   ElevatedButton(
-                    onPressed: (!stand.lockStatus[index])
-                        ? null
-                        : () async {
-                            stand.lockStatus[index] = false;
-			    log("Initializing Request\n");
-                            var resp = wiFiService.sendUnlockRequest(index);
-			    log(resp);
-                            await db.sendLockRequest(stand.id, index, true);
-                          },
+                    onPressed: () {
+                      stand.lockStatus[index] = false;
+                      log("Initializing Request\n");
+                      var resp = wiFiService.sendUnlockRequest(index + 1);
+                      log(resp);
+                      //     db.sendLockRequest(stand.id + 1, index, true);
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: (!stand.lockStatus[index])
                           ? Colors.grey
                           : Colors.green,
                     ),
                     child: (!stand.lockStatus[index])
-                        ? Text("Cycle ${index.toString()} Unlocked")
-                        : Text("Unlock cycle ${index.toString()}"),
+                        ? Text("Cycle ${(index + 1).toString()} Unlocked")
+                        : Text("Unlock cycle ${(index + 1).toString()}"),
                   ),
                 ],
               );

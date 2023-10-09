@@ -43,7 +43,7 @@ class WiFiService {
         scheme: "http", host: stand.ip, queryParameters: {'cycleNum': n.toString()});
     log(uri.toString());
     var request = get(uri);
-		log(request.toString());
+    log(request.toString());
     var resp = request.asStream().toString();
     log(resp);
     return resp;
