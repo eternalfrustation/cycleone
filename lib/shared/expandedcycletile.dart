@@ -35,44 +35,21 @@ class ExpandedCycleTile extends StatelessWidget {
                         (!stand.lockStatus[index]) ? Colors.grey : Colors.green,
                   ),
                   ElevatedButton(
-                    onPressed: (!stand.lockStatus[index])
-                        ? null
-                        : () {
-                            stand.lockStatus[index] = false;
-                            log("Initializing Request\n");
-                            var resp = wiFiService.sendUnlockRequest(index);
-                            showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                      title: const Text("Alert"),
-                                      content: const Text(
-                                          "Please turn off your WiFi to proceed"),
-                                      actions: [
-                                        TextButton(
-                                            onPressed:
-                                                WiFiForIoTPlugin.setEnabled(
-                                                    false,
-                                                    shouldOpenSettings: true),
-                                            child: const Text("Proceed")),
-                                        TextButton(
-                                            onPressed:
-                                                WiFiForIoTPlugin.setEnabled(
-                                                    false,
-                                                    shouldOpenSettings: true),
-                                            child: const Text("Proceed"))
-                                      ]);
-                                });
-                            db.sendLockRequest(stand.id, index, false);
-                          },
+                    onPressed: () {
+                      stand.lockStatus[index] = false;
+                      log("Initializing Request\n");
+                      var resp = wiFiService.sendUnlockRequest(index + 1);
+                      log(resp);
+                      //     db.sendLockRequest(stand.id + 1, index, true);
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: (!stand.lockStatus[index])
                           ? Colors.grey
                           : Colors.green,
                     ),
                     child: (!stand.lockStatus[index])
-                        ? Text("Cycle ${index.toString()} Unlocked")
-                        : Text("Unlock cycle ${index.toString()}"),
+                        ? Text("Cycle ${(index + 1).toString()} Unlocked")
+                        : Text("Unlock cycle ${(index + 1).toString()}"),
                   ),
                 ],
               );
