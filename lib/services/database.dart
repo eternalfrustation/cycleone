@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cycleone/models/stand.dart';
@@ -44,26 +45,11 @@ class DB {
     final stands = snapshot.docs.map((doc) {
       log(doc.toString());
       return Stand(
-          name: doc['name'],
-          id: doc['id'],
-          lockStatus: List<bool>.from(doc['status']),
-          ip: doc['ip'],
-          ssid: doc['ssid'],
-          password: doc['password']);
+        name: doc['name'],
+        macAddress: "",
+      );
     }).toList();
     return stands;
-  }
-
-  Future sendLockRequest(int standId, int cycleId, bool lock) async {
-    var stand = await DB()
-        .standStream
-        .map((stands) =>
-            stands!.where((stand) => stand.id == standId).firstOrNull)
-        .first;
-    var status = stand!.lockStatus;
-    status[cycleId] = lock;
-    await usersInstance.doc(uid).update({'cycleInPossession': true});
-    return await standsInstance.doc(uid).update({'status': status});
   }
 
   Stream<List<Stand>?> get standStream {

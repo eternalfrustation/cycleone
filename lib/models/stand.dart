@@ -1,16 +1,43 @@
+import 'dart:convert';
+import 'dart:developer';
+import 'dart:typed_data';
+
+import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
+
 class Stand {
-  
   final String name;
-  final int id;
-  final List<bool> lockStatus;
-  final String ip;
-  final String ssid;
-  final String password;
-  bool connectedToApp = false;
+  final String? macAddress;
+  bool? isLocked;
+  BluetoothConnection? btConn;
+  String? currentTag;
 
-  int emptys = 0;
-  int fulls = 0;
-  int total = 0;
+  Stand({
+    required this.name,
+    required this.macAddress,
+  });
+  connect() async {
+    btConn = await BluetoothConnection.toAddress(macAddress);
+    btConn?.input?.listen((data) {
+      final resp = jsonDecode(data as String);
+      if (resp["status"] == "failed") {
+        log(resp);
+        if ((resp["error"] as String).contains("Not Available")) {
+          isLocked == false;
+        }
+      } else if (resp["status"] == "success") {
+        currentTag = resp["tag"];
+        isLocked = true;
+      }
+    });
+  }
 
-  Stand({required this.name, required this.id, required this.lockStatus, required this.ip, required this.ssid, required this.password});
-} 
+  void unlock() {
+    btConn?.output.add('U' as Uint8List);
+  }
+
+  void getTag() {
+    btConn?.output.add('G' as Uint8List);
+  }
+}
+
+class InvalidMacAddress {}
